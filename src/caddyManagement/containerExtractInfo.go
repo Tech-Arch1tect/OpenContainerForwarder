@@ -48,7 +48,9 @@ func getStats(container types.Container) (ContainerStats, string, error) {
 				enabled = true
 				containerStats.Hostname = append(containerStats.Hostname, element)
 			} else if strings.HasPrefix(key, config.Conf.LabelPrefix+".restrictip") {
-				containerStats.Restrictip = append(containerStats.Restrictip, element)
+				if element != "" {
+					containerStats.Restrictip = append(containerStats.Restrictip, element)
+				}
 			} else {
 				switch key {
 				case config.Conf.LabelPrefix + ".port":
