@@ -1,0 +1,5 @@
+{{ range $label, $value := .DisplayLabels }}
+    <li class="list-group-item" style="padding: 5px;">
+        <span><strong>{{$label}}</strong>: <br> {{ $value }}</span>
+    </li>
+{{end}}

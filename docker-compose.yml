@@ -1,0 +1,36 @@
+version: '3'
+services:
+  caddy:
+    image: techarchitect/opencontainerforwarder-caddy:latest
+    build: ./caddy-docker/
+    restart: always
+    volumes:
+      - ./volumes/caddy/data:/data
+      - ./volumes/caddy/config:/config
+      - ./volumes/OpenContainerForwarder/config:/etc/caddy/
+      - ./volumes/caddy/logs:/var/log/caddy
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+    networks:
+      - proxy
+  OpenContainerForwarder:
+    image: techarchitect/opencontainerforwarder:latest
+    build: ./src/
+    restart: always
+    environment:
+      - DefaultTLSProvider=internal
+      - WebDashEnabled=true
+    labels:
+      open.container.forwarder.port: "8080"
+      open.container.forwarder.hostname: "localhost"
+    volumes:
+      - ./volumes/OpenContainerForwarder/config:/data/config
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/OpenContainerForwarder/dumps/:/dumps/
+      - ./volumes/caddy/logs:/var/log/caddy
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true

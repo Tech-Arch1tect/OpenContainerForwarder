@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Container Forwarder Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  </head>
+  <body>
+
+<div class="container">
+<h3 class="display-3 text-center">Open Container Forwarder Dashboard</h1>
+{{ $gWarningCount := len .GlobalWarnings }}
+<h3>General Warnings: {{ $gWarningCount }}</h3>
+{{ range $warning := .GlobalWarnings }}
+        <li class="nav-item">
+          {{ $warning }}
+        </li>
+{{end}}
+    <div class="row align-items-start">
+    <div class="col-4">
+<nav>
+    <ul class="nav nav-pills flex-column">
+{{ range $index, $config := .Containers }}
+        <li class="nav-item">
+        {{ $warningCount := len $config.Warnings }}
+          <a class="nav-link" data-bs-toggle="pill" href="#nav-{{ $index }}">{{ index $config.Hostname }} {{ if ne $warningCount 0 }} - {{ $warningCount }} Warning(s){{end}}</a>
+        </li>
+{{end}}
+      </ul>
+</nav>
+</div>
+<div class="col">
+<div class="tab-content" id="nav-tabContent">
+{{ range $index, $config := .Containers }}
+  <div class="tab-pane fade show" id="nav-{{ $index }}" role="tabpanel" aria-labelledby="nav-{{ $index }}-tab">
+    <a class="btn btn-success" href="/stats/{{$index}}">Access Log / Visitor Stats</a>
+    <h3 class="display-6">Container configuration</h3>
+    {{template "tab-part.tmpl" $config}}
+    {{ $warningCount := len $config.Warnings }}
+    <h3 class="display-6">Warnings</h3>
+    <p>
+    {{ if eq $warningCount 0 }}
+      <p>No warnings.</p>
+    {{else}}
+      {{ range $warning := .Warnings }}
+      <p>{{$warning}}</p>
+      {{ end }}
+    {{ end }}
+    </p>
+  </div>
+{{end}}
+</div>
+</div>
+
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+admin 0.0.0.0:2019
+}
+{{- range $container := .Containers }}
+{{ joinStrings $container.Hostname ", " }} {
+{{ if ne $container.LogFormat "" }}
+   log {
+      output file /var/log/caddy/{{ $container.HostnameSafe }}.log
+      format {{ $container.LogFormat }}
+   }
+{{ end }}
+{{- if gt (len $container.Restrictip) 0 }}
+   @lockdown {
+      remote_ip {{ if ne $container.TrustedProxies "" }}forwarded {{end}}{{ joinStrings $container.Restrictip " " }}
+   }
+{{- end}}
+   reverse_proxy {{ if gt (len $container.Restrictip) 0 }}@lockdown{{ end}} {{ $container.Upstream }}:{{ $container.ContainerPort }} { 
+{{ if eq $container.Protocol "https" }}
+      transport http {
+         tls
+         tls_insecure_skip_verify
+      }
+{{ end}}
+{{ if ne $container.TrustedProxies "" }}
+      trusted_proxies {{ $container.TrustedProxies }}
+{{ end }}
+   }
+{{ if (eq $container.TLSProvider "cloudflare") }}
+   tls { 
+     dns cloudflare {{ $container.CloudflareAPIKey }} 
+   }
+{{ end }}
+{{ if eq $container.TLSProvider "internal" }}
+   tls internal
+{{ end }}
+}
+{{ end}}
