@@ -146,7 +146,7 @@
 <p>If all / the majority of your websites are behind a  reverse proxy/cloudflare there are some useful default's that you can set globally.</p>
 <h2 id="using-cloudflare-dns-for-the-tls-provider">Using Cloudflare DNS for the TLS provider</h2>
 <ul>
-<li>Certificates are verified through DNS, caddy/plugin automatically add the required DNS records for verification</li>
+<li>Certificates are verified through DNS records, caddy/cloudflare DNS plugin automatically add the required DNS records for verification using the Cloudflare API</li>
 <li>You need a Cloudflare API key which has permissions to add DNS records for your domains</li>
 </ul>
 <p>Within <code>/opt/OpenContainerForwarder/.env</code> configure the TLS provider + Cloudflare API key:</p>
@@ -155,8 +155,8 @@ CLOUDFLARE_API_KEY=xxxxxx
 </code></pre>
 <p>With this configuration all containers will use Cloudflare DNS for SSL verification using the specified API key, unless the container overrides these settings using the open.container.forwarder labels (open.container.forwarder.tlsprovider and open.container.forwarder.cloudflareapiKey)</p>
 <h2 id="trusted-proxies">Trusted Proxies</h2>
-<p>Caddy by default doesn't trust any x-forwarded-<em> etc headers sent to it. By defining trusted proxies we can allow caddy to forward the x-forwarded-</em> headers down to the container backends when the requests are from Cloudflare IP's.</p>
-<p>For Cloudflare you can grab the IP's from <a href="https://www.cloudflare.com/en-gb/ips/">here</a> and then configure them as your trusted proxies default with the following .env entry:</p>
+<p>Caddy by default doesn't trust any x-forwarded-<em> etc headers sent to it (e.g. sent by the Cloudflare proxy). By defining trusted proxies we can allow caddy to forward the x-forwarded-</em> headers down to the container backends when the requests are from Cloudflare IP's.</p>
+<p>For Cloudflare you can grab the IP ranges from <a href="https://www.cloudflare.com/en-gb/ips/">here</a> and then configure them as your trusted proxies default with the following .env entry:</p>
 <pre><code>DEFAULT_TRUSTED_PROXIES=xxx.xxx.xxx.xxx/XX x.x.x.x/XX xxx.x.xxx.x/XX
 </code></pre>
 <p>This can be overridden on a per-container basis using the container label <code>open.container.forwarder.trustedproxies</code> (e.g. if a container/hostname is not using cloudflare)</p></div>
