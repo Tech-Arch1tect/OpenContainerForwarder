@@ -69,11 +69,23 @@
 </li>
             
 <li>
+    <a href="../CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
+</li>
+            
+<li>
     <a href="../Hostname/" class="dropdown-item">Hostname</a>
 </li>
             
 <li>
-    <a href="../Ports/" class="dropdown-item">Ports</a>
+    <a href="../Port/" class="dropdown-item">Port</a>
+</li>
+            
+<li>
+    <a href="../Protocol/" class="dropdown-item">Protocol</a>
+</li>
+            
+<li>
+    <a href="../Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
 </li>
             
 <li>
@@ -101,7 +113,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Hostname/" class="nav-link">
+                                <a rel="next" href="../CloudflareApiKey/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -122,12 +134,39 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#synopsis" class="nav-link">Synopsis</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#label" class="nav-link">Label</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#value" class="nav-link">Value</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#details" class="nav-link">Details</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<p>TODO</p></div>
+<h2 id="synopsis">Synopsis</h2>
+<p>OpenContainerForwarder configures access logs in Caddy named <em>hostname</em>.log. This label configures the logformat used. </p>
+<h2 id="label">Label</h2>
+<p><code>open.container.forwarder.logformat</code></p>
+<h2 id="value">Value</h2>
+<p><code>console</code> or <code>json</code> are the only valid values, string</p>
+<h2 id="details">Details</h2>
+<p>It is planned to add new options to configure the access logs further (or disable per-hostname). e.g. to configure log rotation settings (currently Caddy defaults are used).</p></div>
             </div>
         </div>
 

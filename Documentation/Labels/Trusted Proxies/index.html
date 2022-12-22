@@ -69,11 +69,23 @@
 </li>
             
 <li>
+    <a href="../CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
+</li>
+            
+<li>
     <a href="../Hostname/" class="dropdown-item">Hostname</a>
 </li>
             
 <li>
-    <a href="../Ports/" class="dropdown-item">Ports</a>
+    <a href="../Port/" class="dropdown-item">Port</a>
+</li>
+            
+<li>
+    <a href="../Protocol/" class="dropdown-item">Protocol</a>
+</li>
+            
+<li>
+    <a href="../Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
 </li>
             
 <li>
@@ -122,12 +134,41 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#synopsis" class="nav-link">Synopsis</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#label" class="nav-link">Label</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#value" class="nav-link">Value</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#details" class="nav-link">Details</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<p>TODO</p></div>
+<h2 id="synopsis">Synopsis</h2>
+<p>This label is used to trust a proxy sending x-forwarded-* headers. Without configuring Trusted Proxies the x-forwarded-for headers will be ignored by Caddy. Read more about Caddy behaviour <a href="https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#trusted_proxies">here</a></p>
+<h2 id="label">Label</h2>
+<p><code>open.container.forwarder.trustedproxies</code></p>
+<h2 id="value">Value</h2>
+<p>Space seperated list of CIDR ranges, string</p>
+<h2 id="details">Details</h2>
+<p>This label should be used when behind another reverse_proxy e.g. Cloudflare.</p>
+<p>Using Cloudflare as an example use-case, we can take the IP ranges from <a href="https://www.cloudflare.com/en-gb/ips/">here</a> and create a label like <code>open.container.forwarder.trustedproxies= x.x.x.x/XX x.x.x.x/XX x.x.x.x/XX</code> etc.</p>
+<p>With trusted proxies configured, Caddy will trust that the configured CIDR ranegs will send good x-forwarded-* values.</p></div>
             </div>
         </div>
 
