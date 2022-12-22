@@ -10,10 +10,19 @@ import (
 )
 
 func sanityCheckContainer(newContainer structs.ContainerStats, containers []structs.ContainerStats) error {
+	// Validate with go validator
 	_, err := govalidator.ValidateStruct(newContainer)
 	if err != nil {
 		return err
 	}
+
+	// If tls provider is cloudflare, check cloudflare api key is set
+	if newContainer.TLSProvider == "cloudflare" {
+		if newContainer.CloudflareAPIKey == "" {
+			return errors.New("cloudflare API key not set")
+		}
+	}
+
 	// check for duplicate hostnames
 	for _, container := range containers {
 		for _, hostname := range container.Hostname {
