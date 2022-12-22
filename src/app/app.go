@@ -17,7 +17,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-var RunningContainers []structs.ContainerStats
+var RunningContainers []structs.ContainerExtracts
 var GlobalWarnings []string
 
 func Loop() {
@@ -32,6 +32,6 @@ func Loop() {
 	time.Sleep(time.Second * time.Duration(config.Conf.LoopFrequency))
 }
 
-func slicesEqual(a, b []structs.ContainerStats) bool {
+func slicesEqual(a, b []structs.ContainerExtracts) bool {
 	return cmp.Equal(a, b)
 }

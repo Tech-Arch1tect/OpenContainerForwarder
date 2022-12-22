@@ -11,7 +11,7 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 )
 
-func GenerateConfiguration(containers []structs.ContainerStats) {
+func GenerateConfiguration(containers []structs.ContainerExtracts) {
 	tData := structs.ContainerTemplateData{}
 	tData.Containers = containers
 	tData.Config = config.Conf

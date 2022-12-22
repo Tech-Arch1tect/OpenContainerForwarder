@@ -5,13 +5,13 @@ import (
 	"github.com/docker/docker/api/types"
 )
 
-func ExtractInfo(RawContainerData []types.Container, globalWarnings *[]string) []structs.ContainerStats {
-	extractedContainers := []structs.ContainerStats{}
+func ExtractInfo(RawContainerData []types.Container, globalWarnings *[]string) []structs.ContainerExtracts {
+	extractedContainers := []structs.ContainerExtracts{}
 	*globalWarnings = []string{}
 	for _, rawContainer := range RawContainerData {
-		containerStats, elevel, err := getInfo(rawContainer, extractedContainers)
+		containerExtracts, elevel, err := getExtract(rawContainer, extractedContainers)
 		if err == nil {
-			extractedContainers = append(extractedContainers, containerStats)
+			extractedContainers = append(extractedContainers, containerExtracts)
 		} else {
 			if elevel == "warning" {
 				*globalWarnings = append(*globalWarnings, err.Error())
