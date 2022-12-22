@@ -4,11 +4,11 @@
 
 ## Container Labels
 
-- [open.container.forwarder.hostname](labels/Hostname)
-- [open.container.forwarder.port](labels/Port)
-- [open.container.forwarder.trustedproxies](labels/Trusted Proxies)
-- [open.container.forwarder.logformat](labels/Access Logs)
-- [open.container.forwarder.protocol](labels/Protocol)
-- [open.container.forwarder.cloudflareapikey](labels/CloudflareApiKey)
-- [open.container.forwarder.tlsprovider](labels/TLS Providers)
-- [open.container.forwarder.restrictip](labels/Restrict to IP addresses)
+- [open.container.forwarder.hostname](Labels/Hostname)
+- [open.container.forwarder.port](Labels/Port)
+- [open.container.forwarder.trustedproxies](Labels/Trusted Proxies)
+- [open.container.forwarder.logformat](Labels/Access Logs)
+- [open.container.forwarder.protocol](Labels/Protocol)
+- [open.container.forwarder.cloudflareapikey](Labels/CloudflareApiKey)
+- [open.container.forwarder.tlsprovider](Labels/TLS Providers)
+- [open.container.forwarder.restrictip](Labels/Restrict to IP addresses)
