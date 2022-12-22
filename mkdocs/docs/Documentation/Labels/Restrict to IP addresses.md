@@ -4,7 +4,7 @@ This label can be used to restrict access to a website to a CIDR range of IP's.
 
 ## Label
 
-`open.container.forwarder.restrictip`
+`open.container.forwarder.restrictip`  
 `open.container.forwarder.restrictip.*`
 
 ## Value
