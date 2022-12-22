@@ -1,20 +1,21 @@
-package caddyManagement
+package extract
 
 import (
 	"errors"
 	"strconv"
 	"strings"
 
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 	"github.com/asaskevich/govalidator"
 )
 
-func sanityCheckContainer(newContainer ContainerStats) error {
+func sanityCheckContainer(newContainer structs.ContainerStats, containers []structs.ContainerStats) error {
 	_, err := govalidator.ValidateStruct(newContainer)
 	if err != nil {
 		return err
 	}
 	// check for duplicate hostnames
-	for _, container := range Containers {
+	for _, container := range containers {
 		for _, hostname := range container.Hostname {
 			for _, newHostname := range newContainer.Hostname {
 				if hostname == newHostname {

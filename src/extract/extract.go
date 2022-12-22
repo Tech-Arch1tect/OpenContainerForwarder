@@ -1,4 +1,4 @@
-package caddyManagement
+package extract
 
 import (
 	"errors"
@@ -7,34 +7,30 @@ import (
 
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/docker"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/misc"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 	"github.com/docker/docker/api/types"
 )
 
-var Containers []ContainerStats
-var GlobalWarnings []string
-
-func ExtractInfo(containers []types.Container) ContainerTemplateData {
-	var containerData ContainerTemplateData
-	containerData.Config = config.Conf
-	Containers = []ContainerStats{}
-	GlobalWarnings = []string{}
-	for _, container := range containers {
-		containerStats, elevel, err := getStats(container)
+func ExtractInfo(RawContainerData []types.Container, globalWarnings *[]string) []structs.ContainerStats {
+	extractedContainers := []structs.ContainerStats{}
+	*globalWarnings = []string{}
+	for _, rawContainer := range RawContainerData {
+		containerStats, elevel, err := getInfo(rawContainer, extractedContainers)
 		if err == nil {
-			Containers = append(Containers, containerStats)
+			extractedContainers = append(extractedContainers, containerStats)
 		} else {
 			if elevel == "warning" {
-				GlobalWarnings = append(GlobalWarnings, err.Error())
+				*globalWarnings = append(*globalWarnings, err.Error())
 			}
 		}
 	}
-	containerData.Containers = Containers
-	return containerData
+	return extractedContainers
 }
 
-func getStats(container types.Container) (ContainerStats, string, error) {
-	enabled := false
-	containerStats := ContainerStats{}
+func getInfo(rawContainer types.Container, extractedContainers []structs.ContainerStats) (structs.ContainerStats, string, error) {
+	isContainerProxied := false
+	containerStats := structs.ContainerStats{}
 	// set defaults
 	containerStats.TLSProvider = config.Conf.DefaultTLSProvider
 	containerStats.CloudflareAPIKey = config.Conf.CloudFlareAPIKey
@@ -42,10 +38,10 @@ func getStats(container types.Container) (ContainerStats, string, error) {
 	containerStats.TrustedProxies = config.Conf.DefaultTrustedProxies
 	containerStats.Protocol = "http"
 	// get (and overide) values from container labels
-	for key, element := range container.Labels {
+	for key, element := range rawContainer.Labels {
 		if strings.HasPrefix(key, config.Conf.LabelPrefix) {
 			if strings.HasPrefix(key, config.Conf.LabelPrefix+".hostname") {
-				enabled = true
+				isContainerProxied = true
 				containerStats.Hostname = append(containerStats.Hostname, element)
 			} else if strings.HasPrefix(key, config.Conf.LabelPrefix+".restrictip") {
 				if element != "" {
@@ -72,20 +68,20 @@ func getStats(container types.Container) (ContainerStats, string, error) {
 
 		}
 	}
-	if enabled {
-		containerStats.HostnameSafe = stripChars(stripChars(containerStats.Hostname[0], ","), " ")
-		containerStats.Upstream = docker.GetContainerHostname(container.ID)
-		containerStats.ContainerPort = getPort(&containerStats, container)
-		err := sanityCheckContainer(containerStats)
+	if isContainerProxied {
+		containerStats.HostnameSafe = misc.StripChars(misc.StripChars(containerStats.Hostname[0], ","), " ")
+		containerStats.Upstream = docker.GetContainerHostname(rawContainer.ID)
+		containerStats.ContainerPort = getPort(&containerStats, rawContainer)
+		err := sanityCheckContainer(containerStats, extractedContainers)
 		if err != nil {
-			return ContainerStats{}, "warning", err
+			return structs.ContainerStats{}, "warning", err
 		}
 		return containerStats, "", nil
 	}
-	return ContainerStats{}, "info", errors.New(config.Conf.LabelPrefix + " labels not found")
+	return structs.ContainerStats{}, "info", errors.New(config.Conf.LabelPrefix + " labels not found")
 }
 
-func getPort(containerStats *ContainerStats, container types.Container) string {
+func getPort(containerStats *structs.ContainerStats, container types.Container) string {
 	// If the container sets the port explicitly, use this
 	if containerStats.ContainerPort != "" {
 		return containerStats.ContainerPort
@@ -100,14 +96,14 @@ func getPort(containerStats *ContainerStats, container types.Container) string {
 		return "80"
 	}
 	// If there are 2 or more exposed ports, check if any are 80
-	webport := 0
+	foundPort := 0
 	for _, port := range container.Ports {
 		if port.PrivatePort == 80 {
-			webport = 80
+			foundPort = 80
 		}
 	}
 	// if 80 is found, default to this
-	if webport == 80 {
+	if foundPort == 80 {
 		containerStats.Warnings = append(containerStats.Warnings, config.Conf.LabelPrefix+".port not defined. Port 80 was an exposed port so has been used.")
 		return "80"
 	}

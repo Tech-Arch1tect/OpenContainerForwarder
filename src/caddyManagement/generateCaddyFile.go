@@ -8,9 +8,13 @@ import (
 	"text/template"
 
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 )
 
-func GenerateConfiguration(templateData ContainerTemplateData) {
+func GenerateConfiguration(containers []structs.ContainerStats) {
+	tData := structs.ContainerTemplateData{}
+	tData.Containers = containers
+	tData.Config = config.Conf
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatalln(err)
@@ -23,7 +27,7 @@ func GenerateConfiguration(templateData ContainerTemplateData) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = t.Execute(f, templateData)
+	err = t.Execute(f, tData)
 	if err != nil {
 		log.Fatalln(err)
 	}

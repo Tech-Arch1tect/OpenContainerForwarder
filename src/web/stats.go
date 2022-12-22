@@ -17,7 +17,7 @@ func statsOverview(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "badRequest.tmpl", nil)
 		return
 	}
-	container := app.RunningContainers.Containers[index]
+	container := app.RunningContainers[index]
 	if container.LogFormat == "" {
 		c.HTML(http.StatusBadRequest, "error.tmpl", "log format is empty, no access log found.")
 		return
@@ -40,7 +40,7 @@ func statsGetJson(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "badRequest.tmpl", nil)
 		return
 	}
-	container := app.RunningContainers.Containers[index]
+	container := app.RunningContainers[index]
 	if container.LogFormat == "" {
 		c.HTML(http.StatusBadRequest, "error.tmpl", "log format is empty, no access log found.")
 		return

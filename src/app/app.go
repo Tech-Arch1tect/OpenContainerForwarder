@@ -11,14 +11,18 @@ import (
 
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/caddyManagement"
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/docker"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/extract"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 	"github.com/google/go-cmp/cmp"
 )
 
-var RunningContainers caddyManagement.ContainerTemplateData
+var RunningContainers []structs.ContainerStats
+var GlobalWarnings []string
 
 func Loop() {
-	containers := caddyManagement.Collect()
-	if !slicesEqual(containers.Containers, RunningContainers.Containers) {
+	containers := extract.ExtractInfo(docker.GetContainers(), &GlobalWarnings)
+	if !slicesEqual(containers, RunningContainers) {
 		// containers changed
 		log.Println("Container change detected")
 		caddyManagement.GenerateConfiguration(containers)
@@ -28,6 +32,6 @@ func Loop() {
 	time.Sleep(time.Second * time.Duration(config.Conf.LoopFrequency))
 }
 
-func slicesEqual(a, b []caddyManagement.ContainerStats) bool {
+func slicesEqual(a, b []structs.ContainerStats) bool {
 	return cmp.Equal(a, b)
 }

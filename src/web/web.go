@@ -4,7 +4,6 @@ package web
 This is extremely early / not close to being properly functional
 TODO:
 - Add stats from access log
-- Add toggle to fully disable web UI
 - Everything else
 */
 

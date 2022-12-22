@@ -1,8 +1,6 @@
-package caddyManagement
+package structs
 
 import "github.com/Tech-Arch1tect/OpenContainerForwarder/config"
-
-var ContainerData ContainerTemplateData
 
 type ContainerTemplateData struct {
 	Containers []ContainerStats
