@@ -2,11 +2,13 @@ package structs
 
 import "github.com/Tech-Arch1tect/OpenContainerForwarder/config"
 
+// ContainerTemplateData is the data passed to the caddyfile template
 type ContainerTemplateData struct {
 	Containers []ContainerExtracts
 	Config     config.Config
 }
 
+// ContainerExtracts is the data extracted from a container
 type ContainerExtracts struct {
 	Hostname         []string `valid:"dns,required"`              // Slice of SNI hostname(s)
 	HostnameSafe     string   `valid:"type(string),required"`     // hostname as above, with some chars striped out (used for things like log file name)

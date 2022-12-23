@@ -7,6 +7,7 @@ import (
 	"github.com/docker/docker/client"
 )
 
+// Get information about all running docker containers
 func GetContainers() []types.Container {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -21,7 +22,7 @@ func GetContainers() []types.Container {
 	return containers
 }
 
-// get docker container hostname
+// get hostname of a container by its id
 func GetContainerHostname(containerID string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())

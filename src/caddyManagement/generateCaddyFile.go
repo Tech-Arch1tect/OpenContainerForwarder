@@ -11,6 +11,7 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 )
 
+// GenerateConfiguration generates the caddyfile from the extracted container data
 func GenerateConfiguration(containers []structs.ContainerExtracts) {
 	tData := structs.ContainerTemplateData{}
 	tData.Containers = containers
@@ -34,6 +35,7 @@ func GenerateConfiguration(containers []structs.ContainerExtracts) {
 	f.Close()
 }
 
+// joinStrings is a template function to join a slice of strings with a separator
 func joinStrings(s []string, sep string) string {
 	return strings.Join(s, sep)
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/docker/docker/api/types"
 )
 
+// GetPort returns the port to be used for proxying to the container
 func getPort(containerExtract *structs.ContainerExtracts, container types.Container) string {
 	// If the container sets the port explicitly, use this
 	if containerExtract.ContainerPort != "" {

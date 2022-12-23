@@ -11,12 +11,19 @@ import (
 	"github.com/docker/docker/api/types"
 )
 
+// getExtract extracts information from a single docker container and returns a struct of extracted container data if labels are present
 func getExtract(rawContainer types.Container, extractedContainers []structs.ContainerExtracts) (structs.ContainerExtracts, string, error) {
+	// isContainerProxied is a flag to indicate if the container contains any labels that are relevant to the proxy
 	isContainerProxied := false
+	// init containerExtracts struct with default values
 	containerExtract := getContainerDefaults()
-	// get (and overide) values from container labels
+	// get (and override) values from container labels
 	for key, element := range rawContainer.Labels {
+		// check if label is relevant to the proxy
 		if strings.HasPrefix(key, config.Conf.LabelPrefix) {
+			// check if label is a hostname label (including multiple hostnames)
+			// check if label is a restrictip label (including multiple restrictips)
+			// else check if label is a single value label
 			if strings.HasPrefix(key, config.Conf.LabelPrefix+".hostname") {
 				isContainerProxied = true
 				containerExtract.Hostname = append(containerExtract.Hostname, element)
@@ -25,6 +32,8 @@ func getExtract(rawContainer types.Container, extractedContainers []structs.Cont
 					containerExtract.Restrictip = append(containerExtract.Restrictip, element)
 				}
 			} else {
+				// check if label is a single value label
+				// validation of values is performed in the sanityCheckContainer function later
 				switch key {
 				case config.Conf.LabelPrefix + ".port":
 					containerExtract.ContainerPort = element
@@ -39,21 +48,27 @@ func getExtract(rawContainer types.Container, extractedContainers []structs.Cont
 				case config.Conf.LabelPrefix + ".tlsprovider":
 					containerExtract.TLSProvider = element
 				default:
+					// if label is not recognised, add it to the warnings slice
 					containerExtract.Warnings = append(containerExtract.Warnings, "Unrecognised "+config.Conf.LabelPrefix+" label: "+element)
 				}
 			}
 
 		}
 	}
+	// if container should be proxied, perform sanity checks and return containerExtracts struct
 	if isContainerProxied {
 		containerExtract.HostnameSafe = misc.StripChars(misc.StripChars(containerExtract.Hostname[0], ","), " ")
 		containerExtract.Upstream = docker.GetContainerHostname(rawContainer.ID)
 		containerExtract.ContainerPort = getPort(&containerExtract, rawContainer)
-		err := sanityCheckContainer(containerExtract, extractedContainers)
+		// perform validation of values
+		err := validateContainer(containerExtract, extractedContainers)
 		if err != nil {
+			// if sanity check fails, return error and empty containerExtracts struct
 			return structs.ContainerExtracts{}, "warning", err
 		}
+		// if sanity check passes, return containerExtracts struct without error
 		return containerExtract, "", nil
 	}
+	// if container should not be proxied, return empty containerExtracts struct with info error level so that it is not stored in globalWarnings
 	return structs.ContainerExtracts{}, "info", errors.New(config.Conf.LabelPrefix + " labels not found")
 }

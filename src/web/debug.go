@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// debugHeap dumps the heap to /dumps
 func debugHeap(c *gin.Context) {
 	f, err := os.Create("/dumps/" + time.Now().String() + ".heap")
 	if err != nil {
@@ -21,6 +22,7 @@ func debugHeap(c *gin.Context) {
 	c.JSON(http.StatusOK, "Heap dumped")
 }
 
+// debugContainers dumps the running containers to json
 func debugContainers(c *gin.Context) {
 	c.JSON(http.StatusOK, app.RunningContainers)
 }

@@ -6,8 +6,10 @@ import (
 	"strconv"
 )
 
+// Conf is the configuration struct exported for use in other packages
 var Conf Config
 
+// Config is the configuration struct
 type Config struct {
 	CaddyFileLocation     string
 	LoopFrequency         int
@@ -23,23 +25,23 @@ type Config struct {
 	GoVersion             string
 }
 
+// LoadConfig loads the configuration from environment variables
 func LoadConfig() {
-	var conf Config
-	conf.CaddyFileLocation = getDefaultStr("CaddyFileLocation", "/data/config/Caddyfile")
-	conf.LoopFrequency = getDefaultInt("LoopFrequency", 15)
-	conf.CloudFlareAPIKey = getDefaultStr("CloudFlareAPIKey", "")
-	conf.CaddyHost = getDefaultStr("CaddyHost", "http://caddy:2019")
-	conf.DefaultTLSProvider = getDefaultStr("DefaultTLSProvider", "default")
-	conf.DefaultLogFormat = getDefaultStr("DefaultLogFormat", "console")
-	conf.DefaultTrustedProxies = getDefaultStr("DefaultTrustedProxies", "")
-	conf.LabelPrefix = "open.container.forwarder"
-	conf.WebDashEnabled = getDefaultBool("WebDashEnabled", false)
-	conf.CaddyVersion = "2.6.2"
-	conf.AlpineVersion = "3.17"
-	conf.GoVersion = "1.19.4"
-	Conf = conf
+	Conf.CaddyFileLocation = getDefaultStr("CaddyFileLocation", "/data/config/Caddyfile")
+	Conf.LoopFrequency = getDefaultInt("LoopFrequency", 15)
+	Conf.CloudFlareAPIKey = getDefaultStr("CloudFlareAPIKey", "")
+	Conf.CaddyHost = getDefaultStr("CaddyHost", "http://caddy:2019")
+	Conf.DefaultTLSProvider = getDefaultStr("DefaultTLSProvider", "default")
+	Conf.DefaultLogFormat = getDefaultStr("DefaultLogFormat", "console")
+	Conf.DefaultTrustedProxies = getDefaultStr("DefaultTrustedProxies", "")
+	Conf.LabelPrefix = "open.container.forwarder"
+	Conf.WebDashEnabled = getDefaultBool("WebDashEnabled", false)
+	Conf.CaddyVersion = "2.6.2"
+	Conf.AlpineVersion = "3.17"
+	Conf.GoVersion = "1.19.4"
 }
 
+// getDefaultStr returns the value of a string environment variable or a default value if the variable is not set
 func getDefaultStr(key string, defaultValue string) string {
 	value := os.Getenv(key)
 	if len(value) == 0 {
@@ -48,6 +50,7 @@ func getDefaultStr(key string, defaultValue string) string {
 	return value
 }
 
+// getDefaultInt returns the value of a integer environment variable or a default value if the variable is not set
 func getDefaultInt(key string, defaultValue int) int {
 	value := os.Getenv(key)
 	if len(value) == 0 {
@@ -60,6 +63,7 @@ func getDefaultInt(key string, defaultValue int) int {
 	return v
 }
 
+// getDefaultBool returns the value of a boolean environment variable or a default value if the variable is not set
 func getDefaultBool(key string, defaultValue bool) bool {
 	value := os.Getenv(key)
 	if len(value) == 0 {

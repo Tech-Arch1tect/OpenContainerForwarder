@@ -9,7 +9,8 @@ import (
 	"github.com/asaskevich/govalidator"
 )
 
-func sanityCheckContainer(newContainer structs.ContainerExtracts, containers []structs.ContainerExtracts) error {
+// perform validation on container data
+func validateContainer(newContainer structs.ContainerExtracts, containers []structs.ContainerExtracts) error {
 	// Validate with go validator
 	_, err := govalidator.ValidateStruct(newContainer)
 	if err != nil {

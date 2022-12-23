@@ -5,7 +5,10 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 )
 
+// getContainerDefaults returns a structs.ContainerExtracts with default container values
+
 func getContainerDefaults() structs.ContainerExtracts {
+	// Init empty variable to hold extracted container data
 	containerExtract := structs.ContainerExtracts{}
 	// set defaults
 	containerExtract.TLSProvider = config.Conf.DefaultTLSProvider
@@ -13,5 +16,6 @@ func getContainerDefaults() structs.ContainerExtracts {
 	containerExtract.LogFormat = config.Conf.DefaultLogFormat
 	containerExtract.TrustedProxies = config.Conf.DefaultTrustedProxies
 	containerExtract.Protocol = "http"
+	// return default container data
 	return containerExtract
 }

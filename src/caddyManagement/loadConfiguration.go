@@ -9,6 +9,7 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
 )
 
+// LoadConfiguration loads the caddyfile into caddy using the caddy api
 func LoadConfiguration() {
 	client := &http.Client{}
 	data, err := os.Open(config.Conf.CaddyFileLocation)

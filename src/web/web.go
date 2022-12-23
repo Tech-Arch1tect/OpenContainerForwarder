@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// StartWeb starts the web dashboard if enabled
 func StartWeb() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/web/*")

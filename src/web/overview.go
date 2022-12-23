@@ -9,11 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// overview is the main page of the web dashboard
 func overview(c *gin.Context) {
 	TemplateData := getWebTemplatedata()
 	c.HTML(http.StatusOK, "index.tmpl", TemplateData)
 }
 
+// getWebTemplatedata returns the data for the web dashboard
 func getWebTemplatedata() webTemplateData {
 	tData := webTemplateData{}
 	tData.GlobalWarnings = app.GlobalWarnings
@@ -36,6 +38,7 @@ func getWebTemplatedata() webTemplateData {
 	return tData
 }
 
+// setLabelIfval sets a label in the webContainerInfo struct if the value is not empty
 func setLabelIfval(cInfo *webContainerInfo, value, key string) {
 	if value != "" {
 		cInfo.DisplayLabels[key] = value

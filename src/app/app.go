@@ -17,21 +17,32 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
+// RunningContainers stores the extracted information about the running containers
+// Exported so that they can be accessed by the web dashboard
 var RunningContainers []structs.ContainerExtracts
+
+// GlobalWarnings stores warnings that are generated during the extraction process
+// Exported so that they can be accessed by the web dashboard
 var GlobalWarnings []string
 
+// Loop is the main loop of the application
+// It checks for changes in the running containers and updates the configuration if necessary
 func Loop() {
 	containers := extract.ExtractInfo(docker.GetContainers(), &GlobalWarnings)
 	if !slicesEqual(containers, RunningContainers) {
-		// containers changed
+		// If the extracted container data has changed, generate a new configuration and load it
 		log.Println("Container change detected")
 		caddyManagement.GenerateConfiguration(containers)
 		caddyManagement.LoadConfiguration()
 	}
+	// Update the running containers variable
 	RunningContainers = containers
+	// Sleep for the configured amount of time before looping again
 	time.Sleep(time.Second * time.Duration(config.Conf.LoopFrequency))
 }
 
+// slicesEqual compares two slices of structs.ContainerExtracts
+// cmp.Equal is used for the comparison however may be inappropriate for production use
 func slicesEqual(a, b []structs.ContainerExtracts) bool {
 	return cmp.Equal(a, b)
 }
