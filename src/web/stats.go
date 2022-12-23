@@ -11,13 +11,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// statsOverview shows the stats overview page
 func statsOverview(c *gin.Context) {
 	index, err := strconv.Atoi(c.Param("index"))
 	if err != nil {
 		c.HTML(http.StatusBadRequest, "badRequest.tmpl", nil)
 		return
 	}
-	container := app.RunningContainers.Containers[index]
+	container := app.RunningContainers[index]
 	if container.LogFormat == "" {
 		c.HTML(http.StatusBadRequest, "error.tmpl", "log format is empty, no access log found.")
 		return
@@ -34,13 +35,14 @@ func statsOverview(c *gin.Context) {
 	c.HTML(http.StatusOK, "access-log-stats.tmpl", reportData)
 }
 
+// statsGetJson returns the access log stats as json
 func statsGetJson(c *gin.Context) {
 	index, err := strconv.Atoi(c.Param("index"))
 	if err != nil {
 		c.HTML(http.StatusBadRequest, "badRequest.tmpl", nil)
 		return
 	}
-	container := app.RunningContainers.Containers[index]
+	container := app.RunningContainers[index]
 	if container.LogFormat == "" {
 		c.HTML(http.StatusBadRequest, "error.tmpl", "log format is empty, no access log found.")
 		return
@@ -54,6 +56,8 @@ func statsGetJson(c *gin.Context) {
 	c.JSON(200, stats.GetStats())
 }
 
+// setAccessLogRegexes sets the regexes for the access log parser
+// TODO: implement json log format & console log format properly
 func setAccessLogRegexes(logformat string) {
 	// Not implemented, will change
 	if logformat == "console" {

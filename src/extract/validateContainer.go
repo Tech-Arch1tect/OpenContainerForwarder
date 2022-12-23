@@ -1,20 +1,31 @@
-package caddyManagement
+package extract
 
 import (
 	"errors"
 	"strconv"
 	"strings"
 
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 	"github.com/asaskevich/govalidator"
 )
 
-func sanityCheckContainer(newContainer ContainerStats) error {
+// perform validation on container data
+func validateContainer(newContainer structs.ContainerExtracts, containers []structs.ContainerExtracts) error {
+	// Validate with go validator
 	_, err := govalidator.ValidateStruct(newContainer)
 	if err != nil {
 		return err
 	}
+
+	// If tls provider is cloudflare, check cloudflare api key is set
+	if newContainer.TLSProvider == "cloudflare" {
+		if newContainer.CloudflareAPIKey == "" {
+			return errors.New("cloudflare API key not set")
+		}
+	}
+
 	// check for duplicate hostnames
-	for _, container := range Containers {
+	for _, container := range containers {
 		for _, hostname := range container.Hostname {
 			for _, newHostname := range newContainer.Hostname {
 				if hostname == newHostname {

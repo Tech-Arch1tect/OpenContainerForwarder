@@ -9,9 +9,12 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
 )
 
+// main function generates dockerfiles for caddy & the main container
 func main() {
 	log.Println("Generating dockerfiles...")
+	// Load configuration
 	config.LoadConfig()
+	// Generate dockerfiles
 	generate()
 	log.Println("Done.")
 }

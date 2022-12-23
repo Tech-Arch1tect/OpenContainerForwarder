@@ -7,9 +7,13 @@ import (
 )
 
 func main() {
+	// Load configuration
 	config.LoadConfig()
-	app.ConfigurationSanityChecks()
+	// Check for errors in configuration
+	app.ValidateConfiguration()
+	// Start web dashboard
 	web.StartWeb()
+	// Start main loop
 	for {
 		app.Loop()
 	}
