@@ -6,7 +6,6 @@ import (
 )
 
 // getContainerDefaults returns a structs.ContainerExtracts with default container values
-
 func getContainerDefaults() structs.ContainerExtracts {
 	// Init empty variable to hold extracted container data
 	containerExtract := structs.ContainerExtracts{}

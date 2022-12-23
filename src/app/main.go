@@ -14,7 +14,6 @@ import (
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/docker"
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/extract"
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
-	"github.com/google/go-cmp/cmp"
 )
 
 // RunningContainers stores the extracted information about the running containers
@@ -39,10 +38,4 @@ func Loop() {
 	RunningContainers = containers
 	// Sleep for the configured amount of time before looping again
 	time.Sleep(time.Second * time.Duration(config.Conf.LoopFrequency))
-}
-
-// slicesEqual compares two slices of structs.ContainerExtracts
-// cmp.Equal is used for the comparison however may be inappropriate for production use
-func slicesEqual(a, b []structs.ContainerExtracts) bool {
-	return cmp.Equal(a, b)
 }

@@ -1,11 +1,9 @@
 package structs
 
-import "github.com/Tech-Arch1tect/OpenContainerForwarder/config"
-
 // ContainerTemplateData is the data passed to the caddyfile template
 type ContainerTemplateData struct {
 	Containers []ContainerExtracts
-	Config     config.Config
+	Config     Config
 }
 
 // ContainerExtracts is the data extracted from a container
@@ -21,4 +19,20 @@ type ContainerExtracts struct {
 	TLSProvider      string   `valid:"in(internal|default|cloudflare),optional"` // How should we optain certs. e.g. cloudflare (dns), direct (default), selfsigned (internal) etc. Set globally and overridden by container-specific label
 	Upstream         string   `valid:"required"`                                 // The hostname or IP we are proxying to
 	Warnings         []string
+}
+
+// Config is the configuration struct
+type Config struct {
+	CaddyFileLocation     string
+	LoopFrequency         int
+	CloudFlareAPIKey      string
+	CaddyHost             string
+	DefaultTLSProvider    string
+	DefaultLogFormat      string
+	DefaultTrustedProxies string
+	LabelPrefix           string
+	WebDashEnabled        bool
+	CaddyVersion          string
+	AlpineVersion         string
+	GoVersion             string
 }

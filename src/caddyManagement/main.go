@@ -4,10 +4,37 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
+	"text/template"
 	"time"
 
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
+	"github.com/Tech-Arch1tect/OpenContainerForwarder/structs"
 )
+
+// GenerateConfiguration generates the caddyfile from the extracted container data
+func GenerateConfiguration(containers []structs.ContainerExtracts) {
+	tData := structs.ContainerTemplateData{}
+	tData.Containers = containers
+	tData.Config = config.Conf
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	t, err := template.New("caddyfile.tmpl").Funcs(template.FuncMap{"joinStrings": joinStrings}).ParseFiles(filepath.Join(cwd, "templates/caddy/caddyfile.tmpl"))
+	if err != nil {
+		log.Fatalln(err)
+	}
+	f, err := os.Create(config.Conf.CaddyFileLocation)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	err = t.Execute(f, tData)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	f.Close()
+}
 
 // LoadConfiguration loads the caddyfile into caddy using the caddy api
 func LoadConfiguration() {
