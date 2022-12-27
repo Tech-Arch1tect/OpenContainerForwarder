@@ -2,6 +2,7 @@ package extract
 
 import (
 	"errors"
+	"sort"
 	"strings"
 
 	"github.com/Tech-Arch1tect/OpenContainerForwarder/config"
@@ -57,6 +58,11 @@ func getExtract(rawContainer types.Container, extractedContainers []structs.Cont
 	}
 	// if container should be proxied, perform sanity checks and return containerExtracts struct
 	if isContainerProxied {
+		// Sort slices to prevent detecting container changes when order of slices changes
+		sort.Strings(containerExtract.Hostname)
+		sort.Strings(containerExtract.Restrictip)
+		sort.Strings(containerExtract.Warnings)
+
 		containerExtract.HostnameSafe = misc.StripChars(misc.StripChars(containerExtract.Hostname[0], ","), " ")
 		containerExtract.Upstream = docker.GetContainerHostname(rawContainer.ID)
 		containerExtract.ContainerPort = getPort(&containerExtract, rawContainer)
