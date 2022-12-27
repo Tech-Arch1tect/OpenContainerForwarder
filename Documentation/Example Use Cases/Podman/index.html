@@ -7,15 +7,15 @@
         
         
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Index - OpenContainerForwarder docs</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Podman - OpenContainerForwarder docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -23,7 +23,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">OpenContainerForwarder docs</a>
+                <a class="navbar-brand" href="../../..">OpenContainerForwarder docs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -34,20 +34,20 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
+                                <a href="../../.." class="nav-link">Home</a>
                             </li>
                             <li class="navitem">
-                                <a href="../Quick%20Start/" class="nav-link">Quick Start</a>
+                                <a href="../../../Quick%20Start/" class="nav-link">Quick Start</a>
                             </li>
                             <li class="navitem">
-                                <a href="../troubleshooting/" class="nav-link">Troubleshooting</a>
+                                <a href="../../../troubleshooting/" class="nav-link">Troubleshooting</a>
                             </li>
                             <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Index</a>
+    <a href="../../" class="dropdown-item">Index</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -55,11 +55,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="Example%20Use%20Cases/Cloudflare/" class="dropdown-item">Cloudflare</a>
+    <a href="../Cloudflare/" class="dropdown-item">Cloudflare</a>
 </li>
             
 <li>
-    <a href="Example%20Use%20Cases/Podman/" class="dropdown-item">Podman</a>
+    <a href="./" class="dropdown-item active">Podman</a>
 </li>
     </ul>
   </li>
@@ -69,35 +69,35 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="Labels/Access%20Logs/" class="dropdown-item">Access Logs</a>
+    <a href="../../Labels/Access%20Logs/" class="dropdown-item">Access Logs</a>
 </li>
             
 <li>
-    <a href="Labels/CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
+    <a href="../../Labels/CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
 </li>
             
 <li>
-    <a href="Labels/Hostname/" class="dropdown-item">Hostname</a>
+    <a href="../../Labels/Hostname/" class="dropdown-item">Hostname</a>
 </li>
             
 <li>
-    <a href="Labels/Port/" class="dropdown-item">Port</a>
+    <a href="../../Labels/Port/" class="dropdown-item">Port</a>
 </li>
             
 <li>
-    <a href="Labels/Protocol/" class="dropdown-item">Protocol</a>
+    <a href="../../Labels/Protocol/" class="dropdown-item">Protocol</a>
 </li>
             
 <li>
-    <a href="Labels/Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
+    <a href="../../Labels/Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
 </li>
             
 <li>
-    <a href="Labels/TLS%20Providers/" class="dropdown-item">TLS Providers</a>
+    <a href="../../Labels/TLS%20Providers/" class="dropdown-item">TLS Providers</a>
 </li>
             
 <li>
-    <a href="Labels/Trusted%20Proxies/" class="dropdown-item">Trusted Proxies</a>
+    <a href="../../Labels/Trusted%20Proxies/" class="dropdown-item">Trusted Proxies</a>
 </li>
     </ul>
   </li>
@@ -112,12 +112,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../troubleshooting/" class="nav-link">
+                                <a rel="prev" href="../Cloudflare/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="Example%20Use%20Cases/Cloudflare/" class="nav-link">
+                                <a rel="next" href="../../Labels/Access%20Logs/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -139,12 +139,18 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#initial-setup" class="nav-link">Initial setup</a>
+            
+            <li class="nav-item" data-level="2"><a href="#intro" class="nav-link">Intro</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="2"><a href="#container-labels" class="nav-link">Container Labels</a>
+            <li class="nav-item" data-level="2"><a href="#the-testing-environment" class="nav-link">The testing environment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#instructions" class="nav-link">Instructions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -153,21 +159,37 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="initial-setup">Initial setup</h2>
+<h3 id="warning">Warning</h3>
+<p>This section of the documentation is currently WIP</p>
+<h2 id="intro">Intro</h2>
+<p>Podman is not currently supported however has been tested and appears to be working. This is due to the podman API implementing a Docker compatible API.</p>
+<h2 id="the-testing-environment">The testing environment</h2>
 <ul>
-<li><a href="../Quick Start">Quick start</a></li>
+<li>Podman running in root mode (So it can bind to port 80/443 - this should be able to be resolved root-less using net.ipv4.ip_unprivileged_port_start as described <a href="https://github.com/containers/podman/blob/main/rootless.md">here</a>)</li>
+<li>Podman socket available at /var/run/podman/podman.sock</li>
+<li>Arch used as host OS</li>
+<li>Podman using netavark as network backend with aardvark-dns setup for container DNS resolution</li>
 </ul>
-<h2 id="container-labels">Container Labels</h2>
-<ul>
-<li><a href="Labels/Hostname">open.container.forwarder.hostname</a></li>
-<li><a href="Labels/Port">open.container.forwarder.port</a></li>
-<li><a href="Labels/Trusted Proxies">open.container.forwarder.trustedproxies</a></li>
-<li><a href="Labels/Access Logs">open.container.forwarder.logformat</a></li>
-<li><a href="Labels/Protocol">open.container.forwarder.protocol</a></li>
-<li><a href="Labels/CloudflareApiKey">open.container.forwarder.cloudflareapikey</a></li>
-<li><a href="Labels/TLS Providers">open.container.forwarder.tlsprovider</a></li>
-<li><a href="Labels/Restrict to IP addresses">open.container.forwarder.restrictip</a></li>
-</ul></div>
+<h2 id="instructions">Instructions</h2>
+<ol>
+<li>Set the DOCKER_HOST var so docker &amp; docker-compose commands use the podman socket</li>
+</ol>
+<pre><code>export DOCKER_HOST='unix:///var/run/podman/podman.sock'
+</code></pre>
+<ol>
+<li>Create the proxy network</li>
+</ol>
+<pre><code>podman network create proxy
+</code></pre>
+<ol>
+<li>(optional) For dev only, disable buildkit</li>
+</ol>
+<pre><code>export DOCKER_BUILDKIT=0
+</code></pre>
+<ol>
+<li>Follow the <a href="../../../Quick Start/">Quick start</a>. Ignoring the "Create docker network" step.</li>
+<li>Within the .env file set the CONTAINER_SOCKET variable to the podman socket location.</li>
+</ol></div>
             </div>
         </div>
 
@@ -176,11 +198,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "..",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
