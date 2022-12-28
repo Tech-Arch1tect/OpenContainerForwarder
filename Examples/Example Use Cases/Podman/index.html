@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Trusted Proxies - OpenContainerForwarder</title>
+        <title>Podman - OpenContainerForwarder</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -42,12 +42,12 @@
                             <li class="navitem">
                                 <a href="../../../troubleshooting/" class="nav-link">Troubleshooting</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../" class="dropdown-item">Index</a>
+    <a href="../../../Documentation/" class="dropdown-item">Index</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -55,46 +55,46 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../Access%20Logs/" class="dropdown-item">Access Logs</a>
+    <a href="../../../Documentation/Labels/Access%20Logs/" class="dropdown-item">Access Logs</a>
 </li>
             
 <li>
-    <a href="../CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
+    <a href="../../../Documentation/Labels/CloudflareApiKey/" class="dropdown-item">CloudflareApiKey</a>
 </li>
             
 <li>
-    <a href="../Hostname/" class="dropdown-item">Hostname</a>
+    <a href="../../../Documentation/Labels/Hostname/" class="dropdown-item">Hostname</a>
 </li>
             
 <li>
-    <a href="../Port/" class="dropdown-item">Port</a>
+    <a href="../../../Documentation/Labels/Port/" class="dropdown-item">Port</a>
 </li>
             
 <li>
-    <a href="../Protocol/" class="dropdown-item">Protocol</a>
+    <a href="../../../Documentation/Labels/Protocol/" class="dropdown-item">Protocol</a>
 </li>
             
 <li>
-    <a href="../Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
+    <a href="../../../Documentation/Labels/Restrict%20to%20IP%20addresses/" class="dropdown-item">Restrict to IP addresses</a>
 </li>
             
 <li>
-    <a href="../TLS%20Providers/" class="dropdown-item">TLS Providers</a>
+    <a href="../../../Documentation/Labels/TLS%20Providers/" class="dropdown-item">TLS Providers</a>
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">Trusted Proxies</a>
+    <a href="../../../Documentation/Labels/Trusted%20Proxies/" class="dropdown-item">Trusted Proxies</a>
 </li>
     </ul>
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../../Examples/Example%20Containers/" class="dropdown-item">Example Containers</a>
+    <a href="../../Example%20Containers/" class="dropdown-item">Example Containers</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -102,11 +102,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../../Examples/Example%20Use%20Cases/Cloudflare/" class="dropdown-item">Cloudflare</a>
+    <a href="../Cloudflare/" class="dropdown-item">Cloudflare</a>
 </li>
             
 <li>
-    <a href="../../../Examples/Example%20Use%20Cases/Podman/" class="dropdown-item">Podman</a>
+    <a href="./" class="dropdown-item active">Podman</a>
 </li>
     </ul>
   </li>
@@ -121,12 +121,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../TLS%20Providers/" class="nav-link">
+                                <a rel="prev" href="../Cloudflare/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../../Examples/Example%20Containers/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -148,22 +148,18 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#synopsis" class="nav-link">Synopsis</a>
+            
+            <li class="nav-item" data-level="2"><a href="#intro" class="nav-link">Intro</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="2"><a href="#label" class="nav-link">Label</a>
+            <li class="nav-item" data-level="2"><a href="#the-testing-environment" class="nav-link">The testing environment</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="2"><a href="#value" class="nav-link">Value</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="2"><a href="#details" class="nav-link">Details</a>
+            <li class="nav-item" data-level="2"><a href="#instructions" class="nav-link">Instructions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -172,16 +168,37 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="synopsis">Synopsis</h2>
-<p>This label is used to trust a proxy sending x-forwarded-* headers. Without configuring Trusted Proxies the x-forwarded-for headers will be ignored by Caddy. Read more about Caddy behaviour <a href="https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#trusted_proxies">here</a></p>
-<h2 id="label">Label</h2>
-<p><code>open.container.forwarder.trustedproxies</code></p>
-<h2 id="value">Value</h2>
-<p>Space seperated list of CIDR ranges, string</p>
-<h2 id="details">Details</h2>
-<p>This label should be used when behind another reverse_proxy e.g. Cloudflare.</p>
-<p>Using Cloudflare as an example use-case, we can take the IP ranges from <a href="https://www.cloudflare.com/en-gb/ips/">here</a> and create a label like <code>open.container.forwarder.trustedproxies= x.x.x.x/XX x.x.x.x/XX x.x.x.x/XX</code> etc.</p>
-<p>With trusted proxies configured, Caddy will trust that the configured CIDR ranegs will send good x-forwarded-* values.</p></div>
+<h3 id="warning">Warning</h3>
+<p>This section of the documentation is currently WIP</p>
+<h2 id="intro">Intro</h2>
+<p>Podman is not currently supported however has been tested and appears to be working. This is due to the podman API implementing a Docker compatible API.</p>
+<h2 id="the-testing-environment">The testing environment</h2>
+<ul>
+<li>Podman running in root mode (So it can bind to port 80/443 - this should be able to be resolved root-less using net.ipv4.ip_unprivileged_port_start as described <a href="https://github.com/containers/podman/blob/main/rootless.md">here</a>)</li>
+<li>Podman socket available at /var/run/podman/podman.sock</li>
+<li>Arch used as host OS</li>
+<li>Podman using netavark as network backend with aardvark-dns setup for container DNS resolution</li>
+</ul>
+<h2 id="instructions">Instructions</h2>
+<ol>
+<li>Set the DOCKER_HOST var so docker &amp; docker-compose commands use the podman socket</li>
+</ol>
+<pre><code>export DOCKER_HOST='unix:///var/run/podman/podman.sock'
+</code></pre>
+<ol>
+<li>Create the proxy network</li>
+</ol>
+<pre><code>podman network create proxy
+</code></pre>
+<ol>
+<li>(optional) For dev only, disable buildkit</li>
+</ol>
+<pre><code>export DOCKER_BUILDKIT=0
+</code></pre>
+<ol>
+<li>Follow the <a href="../../../Quick Start/">Quick start</a>. Ignoring the "Create docker network" step.</li>
+<li>Within the .env file set the CONTAINER_SOCKET variable to the podman socket location.</li>
+</ol></div>
             </div>
         </div>
 
