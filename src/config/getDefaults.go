@@ -1,7 +1,6 @@
 package config
 
 import (
-	"log"
 	"os"
 	"strconv"
 )
@@ -23,7 +22,7 @@ func getDefaultInt(key string, defaultValue int) int {
 	}
 	v, err := strconv.Atoi(value)
 	if err != nil {
-		log.Fatal("Failed getting integer value of " + key)
+		return defaultValue
 	}
 	return v
 }
