@@ -16,7 +16,7 @@ func LoadConfig() {
 	Conf.DefaultTrustedProxies = getDefaultStr("DefaultTrustedProxies", "")
 	Conf.LabelPrefix = "open.container.forwarder"
 	Conf.WebDashEnabled = getDefaultBool("WebDashEnabled", false)
-	Conf.CaddyVersion = "2.6.2"
-	Conf.AlpineVersion = "3.17"
-	Conf.GoVersion = "1.19.4"
+	Conf.CaddyVersion = "2.6.4"
+	Conf.AlpineVersion = "3.18.2"
+	Conf.GoVersion = "1.20.5"
 }

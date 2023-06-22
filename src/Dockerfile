@@ -1,4 +1,4 @@
-FROM golang:1.19.4 AS build
+FROM golang:1.20.5 AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN go mod download
 RUN go build -o /OpenContainerForwarder
 
 ## Deploy
-FROM alpine:3.17
+FROM alpine:3.18.2
 
 RUN apk add libc6-compat
 
