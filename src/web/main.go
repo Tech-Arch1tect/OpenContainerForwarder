@@ -18,8 +18,6 @@ func StartWeb() {
 	r.LoadHTMLGlob("templates/web/*")
 	// routes
 	r.GET("/", overview)
-	r.GET("/stats/:index", statsOverview)
-	r.GET("/stats/:index/json", statsGetJson)
 	r.GET("/debug/dump/heap", debugHeap)
 	r.GET("/debug/dump/containers", debugContainers)
 	// run gin via goroutine

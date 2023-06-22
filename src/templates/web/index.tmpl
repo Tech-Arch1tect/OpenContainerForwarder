@@ -34,7 +34,6 @@
 <div class="tab-content" id="nav-tabContent">
 {{ range $index, $config := .Containers }}
   <div class="tab-pane fade show" id="nav-{{ $index }}" role="tabpanel" aria-labelledby="nav-{{ $index }}-tab">
-    <a class="btn btn-success" href="/stats/{{$index}}">Access Log / Visitor Stats</a>
     <h3 class="display-6">Container configuration</h3>
     {{template "tab-part.tmpl" $config}}
     {{ $warningCount := len $config.Warnings }}

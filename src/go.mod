@@ -3,7 +3,6 @@ module github.com/Tech-Arch1tect/OpenContainerForwarder
 go 1.19
 
 require (
-	github.com/Tech-Arch1tect/access-log-stats v0.1.0
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/docker/docker v24.0.2+incompatible
 	github.com/gin-gonic/gin v1.9.1
